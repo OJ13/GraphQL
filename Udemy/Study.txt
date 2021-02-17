@@ -1,0 +1,49 @@
+GraphQL
+
+O que é GraphQL?
+(https://graphql.org/)
+    É uma linguagem de consultas de API, é como se fosse uma query dinamica para uma API
+trazer retornos dinamicos. Trazendo para o front somente o que é necessário.
+    Quem diz os campos que gostaria de receber da API é o front end.
+
+Rest Vs GraphQL
+Dentro do Rest nós fazemos vários endpoints, para termos um determinado retorno.
+Já em GraphQL voce vai ter apenas uma URL e no body da requisição você envia uma query graphQL,
+então o servidor vai ver essa consulta e devolver aquilo que você solicitou.
+
+Como os Dados São Organizados
+São organizados como Grapho, que tem 'nós' e 'arestas', nesse caso, você vai navegando nos dados
+como se fosse um grande grapho, podendo aessar em qualquer nó, para chegar em outras informações
+
+Vamos utilizar o ApolloServer e o gql.
+Palavras chaves: typeDefs (schema), resolvers (resolvers)
+Na configuração do ApolloServer configuramos, duas coisas principais o:
+ - gql:  (schema)configuração de "assinatura" da sua query
+ - resolvers: o que sua query ira fazer
+
+ Tipos Básicos do GraphQL
+Os tipos suportados pelo GraphQL são: Int, Float, String, Boolean, Id.
+Para criarmos um novo tipo de dados, usamos o nome 'scalar', na parte de criar a query,
+então com a criação desse tipo, conseguimos retornar um tipo novo.
+
+Criando um novo tipo
+Nesse caso no schema usamos a variavel 'type'.
+Para dizer que o campo é Obrigatório colocamos o '!' após o tipo do dado
+
+Resolvers
+Podemos mapear o Schema junto ao que vier do banco por exemplo, caso os nomes dados
+campos sejam distintos, para resolver isso criamos dentro do mesmo resolvers, criando o 
+tipo, passando os campos que precisam ser ajustados
+
+
+Array
+Para criar array no momento em que voce descreve dentro da sua query o tipo dentro de um array:
+exemplo: Idades: [Int]
+Quando executado, valores 'scalares' não trazem todos os dados, então na hora de fazer a consulta, 
+tem que descrever os itens que você quer verificar na consulta
+
+Passando Parâmetros para Consulta
+
+
+
+

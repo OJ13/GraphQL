@@ -43,7 +43,15 @@ Quando executado, valores 'scalares' não trazem todos os dados, então na hora 
 tem que descrever os itens que você quer verificar na consulta
 
 Passando Parâmetros para Consulta
+Temos que colocar na nossa gql, o parentese e passando o parâmetro, e depois passamos no nosso resolvers
+com o segundo parametro sendo args, podendo acessar todos os argumentos
 
+Vínculando Objetos
+Cria-se no gql e no resolver, trazendo um tipo dentro do outro (como no caso, entre usuário e perfil)
 
+Fragment
+É possível criar um "Fragmento" que é o retorno de alguns atributos comuns, que é como se ele trouxer
+uma consulta que tras alguns valores "padrão", podendo reutilizar suas consultas sempre que quiser
 
-
+Refatoracao
+Podemos dividir em pastas, distintas, e usar o 'graphql-import' baixado via npm

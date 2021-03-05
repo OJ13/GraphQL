@@ -1,55 +1,46 @@
 const { ApolloServer, gql } = require('apollo-server');
+const { importSchema } = require('graphql-import');
 
 const usuarios = [{
     id: 1,
     nome: 'Rocky Balboa',
     email: 'rocky.balboa@email.com',
-    idade: 40
+    idade: 40,
+    perfil_id: 1
 }, {
     id: 2,
     nome: 'Adonis Creed',
     email: 'adonis.creed@email.com',
-    idade: 28
+    idade: 28,
+    perfil_id: 1
 },{
     id: 3,
     nome: 'Alan Harper',
     email: 'alan.harpera@email.com',
-    idade: 39
+    idade: 39,
+    perfil_id: 2
 }, {
     id: 4, 
     nome: 'Gal Gadout',
     email: 'gal.gadout@email.com',
-    idade: 25
-}]
+    idade: 25,
+    perfil_id: 3
+}];
 
-const typeDefs = gql`
-    # Pontos de Entrada da sua  API
-    scalar Date
-
-    type Usuario {
-        id: ID
-        nome: String!
-        email: String!
-        idade: Int
-        salario: Float
-        vip: Boolean
+const perfis = [
+    {
+        id: 1,
+        nome: 'administrador'
+    },
+    {
+        id: 2,
+        nome: 'usuario'
+    },
+    {
+        id: 3,
+        nome: 'supervisor'
     }
-    type Produto {
-        nome: String!
-        preco: Float!
-        desconto: Float
-        precoComDesconto: Float
-    }
-
-    type Query {
-        ola: String
-        horaAtual: Date
-        usuarioLogado: Usuario
-        produtoEmDestaque: Produto
-        numerosMegaSena: [Int!]!
-        usuarios: [Usuario]
-    }
-`;
+]
 
 const resolvers = {
     Produto: {
@@ -64,6 +55,10 @@ const resolvers = {
     Usuario: {
         salario(usuario) {
             return usuario.salario_real;
+        },
+        perfil(usuario) {
+            const perfilId = perfis.filter(p => p.id === usuario.perfil_id);
+            return perfilId ? perfilId[0] : null;
         }
     },
     Query : {
@@ -99,12 +94,31 @@ const resolvers = {
         },
         usuarios() {
             return usuarios;
+        },
+        usuario(_, args) {
+            const selecionado = usuarios
+                                    .filter(u => u.id === args.id);
+
+            return selecionado ? selecionado[0] : null;
+        },
+        // usuario(_, { id }) { //Destruct de args
+        //     const selecionado = usuarios
+        //                             .filter(u => u.id === id);
+
+        //     return selecionado ? selecionado[0] : null;
+        // }
+        perfis() {
+            return perfis;
+        },
+        perfil(_, args) {
+            const perf = perfis.filter(p => p.id === args.id);
+            return perf ? perf[0] : null;
         }
     }
 };
 
 const server = new ApolloServer({
-    typeDefs, 
+    typeDefs: importSchema('./schema/index.graphql') , 
     resolvers
 });
 

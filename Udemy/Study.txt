@@ -55,3 +55,11 @@ uma consulta que tras alguns valores "padrão", podendo reutilizar suas consulta
 
 Refatoracao
 Podemos dividir em pastas, distintas, e usar o 'graphql-import' baixado via npm
+
+Mutation
+Existe um tipo Mutation.
+Sempre que for haver uma mudança, um CREATE, DELETE, UPDATE, vamos utilizar a Mutation, a query é para consultas
+a mesmas recebem parametros iguais, e tanto Query como Mutation tem que criar Resolvers.
+Para executar a mutation, temos que utilizar a nomenclarura mutation antes das chaves, para utilizalo
+
+

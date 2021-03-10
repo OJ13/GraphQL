@@ -62,4 +62,15 @@ Sempre que for haver uma mudança, um CREATE, DELETE, UPDATE, vamos utilizar a M
 a mesmas recebem parametros iguais, e tanto Query como Mutation tem que criar Resolvers.
 Para executar a mutation, temos que utilizar a nomenclarura mutation antes das chaves, para utilizalo
 
+Spread
+Na função dentro do resolvers podemos usar o 'args' como segundo argumento, e utilizar o operador spread,
+que ele retornar todo os parametros dentro da sua funçao, podemos utilizar o spread para atualizar os 
+dados passando os argumentos, e sempre vai levar em consideração os ultimos passados(exemplo: alterarUsuario)
 
+Input
+É uma forma que você tem de criar uma entrada de dados genérica, o ideal é um input por mutation, porém isso
+vai depender de cada caso.
+Criando um tipo Input dentro no .graphql, podemos utilizar dentro dos nossos resolvers, então ao invés de utilizar
+o 'args', podemos utilizar o novo input que criamos
+Podemos utilizar isso tanto em Query como em Mutation.
+Podemos utilizar nos resolvers, mais de um, exemplo um de filtro e um de dados, etc.

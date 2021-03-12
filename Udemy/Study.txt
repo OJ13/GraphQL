@@ -20,6 +20,9 @@ Palavras chaves: typeDefs (schema), resolvers (resolvers)
 Na configuração do ApolloServer configuramos, duas coisas principais o:
  - gql:  (schema)configuração de "assinatura" da sua query
  - resolvers: o que sua query ira fazer
+O ApolloServer nos permite utilizar uma ferramenta no brownser para podemos conferir nossas querys e 
+mutations (localhost:4000)
+Keyword Commentary: (Ctrl + ;)
 
  Tipos Básicos do GraphQL
 Os tipos suportados pelo GraphQL são: Int, Float, String, Boolean, Id.

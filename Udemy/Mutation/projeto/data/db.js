@@ -3,8 +3,8 @@ function proximoId() {
     return id++;
 }
 const perfis = [
-    { id: 1, nome: 'comum' },
-    { id: 2, nome: 'administrador' }
+    { id: proximoId(), nome: 'comum' },
+    { id: proximoId(), nome: 'administrador' }
 ]
 
 const usuarios = [{

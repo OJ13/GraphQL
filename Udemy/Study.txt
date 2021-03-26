@@ -81,7 +81,9 @@ Podemos utilizar nos resolvers, mais de um, exemplo um de filtro e um de dados, 
 Knex
 Para utilizar o MySql, vamos utilizar uma biblioteca chamada Knex, após a instalação via npm usamos o comando 
 'npx knex init', o mesmo criar um arquivo (knexfile.js), esse arquivo iremos utilizar para configurar a conexão
-de banco
+de banco. Nós vamos criar todas nossas migrations apartir dele, um comando para exemplo: 
+'npx knex migrate:make {nometabela}', para criar a migration.
+Para verificar as funções disponíveis, só executar o comando 'npx knex'
 
 
 

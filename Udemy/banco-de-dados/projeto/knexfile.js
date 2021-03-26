@@ -2,9 +2,8 @@
 const { connection } = require('./.env')
 
 module.exports = {
-  production: {
     client: 'mysql',
-    connection,
+    connection: connection,
     pool: {
       min: 2,
       max: 10
@@ -12,6 +11,4 @@ module.exports = {
     migrations: {
       tableName: 'knex_migrations'
     }
-  }
-
 };

@@ -77,3 +77,31 @@ Criando um tipo Input dentro no .graphql, podemos utilizar dentro dos nossos res
 o 'args', podemos utilizar o novo input que criamos
 Podemos utilizar isso tanto em Query como em Mutation.
 Podemos utilizar nos resolvers, mais de um, exemplo um de filtro e um de dados, etc.
+
+Knex
+Para utilizar o MySql, vamos utilizar uma biblioteca chamada Knex, após a instalação via npm usamos o comando 
+'npx knex init', o mesmo criar um arquivo (knexfile.js), esse arquivo iremos utilizar para configurar a conexão
+de banco
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

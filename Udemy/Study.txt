@@ -79,6 +79,7 @@ Podemos utilizar isso tanto em Query como em Mutation.
 Podemos utilizar nos resolvers, mais de um, exemplo um de filtro e um de dados, etc.
 
 Knex
+Ele é um Query builder usado muito no ambiente Node.js
 Para utilizar o MySql, vamos utilizar uma biblioteca chamada Knex, após a instalação via npm usamos o comando 
 'npx knex init', o mesmo criar um arquivo (knexfile.js), esse arquivo iremos utilizar para configurar a conexão
 de banco. Nós vamos criar todas nossas migrations apartir dele, um comando para exemplo: 

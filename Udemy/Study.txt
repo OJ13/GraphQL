@@ -84,8 +84,12 @@ Para utilizar o MySql, vamos utilizar uma biblioteca chamada Knex, após a insta
 'npx knex init', o mesmo criar um arquivo (knexfile.js), esse arquivo iremos utilizar para configurar a conexão
 de banco. Nós vamos criar todas nossas migrations apartir dele, um comando para exemplo: 
 'npx knex migrate:make {nometabela}', para criar a migration.
-Para verificar as funções disponíveis, só executar o comando 'npx knex'
-
+Para verificar as funções disponíveis, só executar o comando 'npx knex'.
+quando criamos uma nova migration, ele internamente ele cria dois métodos sozinho (exports.up, exports.down)
+o 'Up' é para criação, alteração de colunas, update de restrições, agora no 'Down' é para exclusão de entidades,
+remoção de colunas, etc, ou seja o 'up' é para evolução e o 'down' para regressão.
+Para executar a ultima migration usamos o comando 'npx knex migrate:latest' e para voltar usamos o comando
+'npx knex migrate:rollback'
 
 
 

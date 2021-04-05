@@ -89,7 +89,9 @@ quando criamos uma nova migration, ele internamente ele cria dois métodos sozin
 o 'Up' é para criação, alteração de colunas, update de restrições, agora no 'Down' é para exclusão de entidades,
 remoção de colunas, etc, ou seja o 'up' é para evolução e o 'down' para regressão.
 Para executar a ultima migration usamos o comando 'npx knex migrate:latest' e para voltar usamos o comando
-'npx knex migrate:rollback'
+'npx knex migrate:rollback'.
+Sempre coloque o inverso do que está sendo feito no 'Up' no 'Down', para que na execução da migration em rollback,
+faça o inverso, e assim suas migrations ficam integras
 
 
 

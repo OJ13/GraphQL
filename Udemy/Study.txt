@@ -100,7 +100,12 @@ então conseguimos criar nossas regras e iteragir com o banco de dados.
 A partir de agora conseguimos utilizar o 'Code Runner' -> (Ctrl + Alt + N) Executa e (Ctrl + Alt + M) para a execução 
 do arquivo 'knex'. (Exemplo: Udemy/banco-de-dados/projeto/tests)
 
+Na hora da execução é criação de funções podemos utilizar as formas de controle de execução:
+Promise - quando estiver pronta ela utiliza o then
+Async / Wait - espera ficar pronta a função await para continuar
 
+O promise ele escalona uma série de "tarefas", uma esperando a outra, porém para realmente, forçar um processo, ha 
+aguardar uma execução em JavaScript, usamos o async -> wait
 
 
 

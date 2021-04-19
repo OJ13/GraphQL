@@ -98,7 +98,10 @@ Criando os acessos:
 Depois do arquivo de configuração criado (knexfile.js), criamos um arquivo de configuração, ex: db.js, a partir dele,
 então conseguimos criar nossas regras e iteragir com o banco de dados.
 A partir de agora conseguimos utilizar o 'Code Runner' -> (Ctrl + Alt + N) Executa e (Ctrl + Alt + M) para a execução 
-do arquivo 'knex'. (Exemplo: Udemy/banco-de-dados/projeto/tests)
+do arquivo 'knex'. (Exemplo: Udemy/banco-de-dados/projeto/tests), no exercicios testes, vamos abrir conexão com knex, 
+e temos que no finally, fechar essa conexão com db.destroy(), numa aplicação real usamos o pool de conexões que configuramos
+no arquivo (knexfile), "pool de conexão - é uma configuração para que as conexões fiquem "abertas" para o reaproveitamento
+da conexão e assim ganho de performance da aplicação com as conexões com o banco de dados"
 
 Na hora da execução é criação de funções podemos utilizar as formas de controle de execução:
 Promise - quando estiver pronta ela utiliza o then

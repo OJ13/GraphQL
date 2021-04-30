@@ -1,4 +1,3 @@
-// Update with your config settings.
 const { connection } = require('./.env')
 
 module.exports = {

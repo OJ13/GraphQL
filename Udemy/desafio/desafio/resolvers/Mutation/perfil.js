@@ -19,9 +19,31 @@ module.exports = {
                 .finally(() => db.destroy())
     },
     async excluirPerfil(_, { filtro }) {
-        // implementar
+        const perfilExistente = await db('perfis').where({id: filtro.id}).first()
+
+        if (perfilExistente) {
+            throw new Error("Perfil não encontrado para exclusão")
+        }
+
+        await db('perfis').where({ id : perfilExistente.id }).delete()
+                    .then((res) => console.log(res))
+                    .catch(err => console.log(err.sqlMessage))
+                    .finally(() => db.destroy())
     },
     async alterarPerfil(_, { filtro, dados }) {
-        // implementar
+        const perfilExistente = await db('perfis').where({id: filtro.id}).first()
+
+        if (perfilExistente) {
+            throw new Error("Perfil não encontrado para edição")
+        }
+
+        await db('perfis').where({ id: perfilExistente.id })
+                    .update({
+                        nome: dados.nome,
+                        rotulo: dados.rotulo
+                    })
+                    .then((res) => console.log(res))
+                    .catch(err => console.log(err.sqlMessage))
+                    .finally(() => db.destroy())
     }
 }

@@ -2,12 +2,54 @@ const db = require('../../config/db')
 
 module.exports = {
     async novoUsuario(_, { dados }) {
-        // Implementar
+        const usuarioExistente = await db('usuarios').where({ email: dados.email}).first();
+
+        if (usuarioExistente) {
+            throw new Error("Usuário já existente")
+        }
+
+        const novoUsuario = {
+            nome: dados.nome,
+            email: dados.email,
+            senha: dados.senha,
+            perfis: dados.perfis
+        }
+
+        await db('usuarios').insert(novoUsuario)
+                        .then(res => res)
+                        .catch(err => console.log(err.sqlMessage))
+                        .finally(() => db.destroy())
+
     },
     async excluirUsuario(_, { filtro }) {
-        // Implementar
+        const usuarioExistente = await db('usuarios').where({ email: filtro.email}).first();
+
+        if (usuarioExistente) {
+            throw new Error("Usuário não encontrado para exclusão")
+        }
+
+        await db('usuarios').where({ id: usuarioExistente.id }).delete()
+                            .then(res => res)
+                            .catch(err => console.log(err.sqlMessage))
+                            .finally(() => db.destroy())
     },
     async alterarUsuario(_, { filtro, dados }) {
-        // Implementar
+        const usuarioExistente = await db('usuarios').where({ email: filtro.email}).first();
+
+        if (usuarioExistente) {
+            throw new Error("Usuário não encontrado para edição")
+        }
+
+        await db('usuarios').where({ id: usuarioExistente.id })
+                        .update({
+                            nome: dados.nome,
+                            email: dados.email,
+                            senha: dados.senha,
+                            perfis: dados.perfis                
+                        })
+                        .then(res => res)
+                        .catch(err => console.log(err.sqlMessage))
+                        .finally(() => db.destroy())
+
     }
 }

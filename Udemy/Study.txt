@@ -110,7 +110,9 @@ Async / Wait - espera ficar pronta a função await para continuar
 O promise ele escalona uma série de "tarefas", uma esperando a outra, porém para realmente, forçar um processo, ha 
 aguardar uma execução em JavaScript, usamos o async -> wait
 
-
+Query JOIN em Knex
+Para criarmos uma query com join utilizando o knex, usamos a function join() passando 3 parametros, (tabela de ligação,
+campo da fk na tabela raiz, campo da fk na tabela de ligação) [para mais informações documentação do knex]
 
 
 

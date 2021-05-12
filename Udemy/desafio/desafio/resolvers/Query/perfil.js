@@ -5,21 +5,21 @@ module.exports = {
         return await db('perfis')
                         .then(res => res)
                         .catch(err => console.log(err.sqlMessage))
-                        .finally(() => db.destroy())
     },
     async perfil(_, { filtro }) {
+        if (!filtro) return null;
+
         const {id, nome} = filtro;
 
         if (id) {
-            return await db('perfis').where({id: id})
+            return await db('perfis').where({id: id}).first()
                             .then(res => res)
                             .catch(err => console.log(err.sqlMessage))
-                            .finally(() => db.destroy())
         } else if (nome) {
-            return await db('perfis').where({nome: nome})
+
+            return await db('perfis').where({nome: nome}).first()
                             .then(res => res)
                             .catch(err => console.log(err.sqlMessage))
-                            .finally(() => db.destroy())
         } else {
             return -1
         }

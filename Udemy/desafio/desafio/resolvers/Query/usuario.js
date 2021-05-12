@@ -5,21 +5,20 @@ module.exports = {
         return await db('usuarios')
                         .then(res => res)
                         .catch(err => console.log(err.sqlMessage))
-                        .finally(() => db.destroy())
     },
     async usuario(_, { filtro }) {
+        if (!filtro) return null
+        
         const { id, email} = filtro;
 
         if (id) {
-            return await db('usuarios').where({id : id})
+            return await db('usuarios').where({id : id}).first()
                             .then(res => res)
                             .catch(err => console.log(err.sqlMessage))
-                            .finally(() => db.destroy())
         } else if (email) {
-            return await db('usuarios').where({email: email})
+            return await db('usuarios').where({email: email}).first()
                             .then(res => res)
                             .catch(err => err.sqlMessage)
-                            .finally(() => db.destroy())
         } else {
             return -1
         }

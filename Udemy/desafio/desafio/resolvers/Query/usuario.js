@@ -2,25 +2,32 @@ const db = require('../../config/db')
 
 module.exports = {
     async usuarios() {
-        return await db('usuarios')
+        try {
+            return await db('usuarios')
                         .then(res => res)
-                        .catch(err => console.log(err.sqlMessage))
+        }catch(e) {
+            console.log(e.sqlMessage)
+            throw new Error("Erro ao buscar usuários");
+        }
     },
     async usuario(_, { filtro }) {
-        if (!filtro) return null
+        try {
+            if (!filtro) return null
         
-        const { id, email} = filtro;
+            const { id, email} = filtro;
 
-        if (id) {
-            return await db('usuarios').where({id : id}).first()
-                            .then(res => res)
-                            .catch(err => console.log(err.sqlMessage))
-        } else if (email) {
-            return await db('usuarios').where({email: email}).first()
-                            .then(res => res)
-                            .catch(err => err.sqlMessage)
-        } else {
-            return -1
+            if (id) {
+                return await db('usuarios').where({id : id}).first()
+                                .then(res => res)
+            } else if (email) {
+                return await db('usuarios').where({email: email}).first()
+                                .then(res => res)
+            } else {
+                return -1
+            }
+        } catch(e) {
+            console.log(e.sqlMessage)
+            throw new Error("Erro ao buscar usuário");
         }
         
     },

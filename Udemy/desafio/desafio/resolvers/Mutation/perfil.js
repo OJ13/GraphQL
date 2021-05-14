@@ -1,4 +1,5 @@
 const db = require('../../config/db')
+const { perfil: ObterPerfil } = require('../Query/perfil')
 
 module.exports = {
     async novoPerfil(_, { dados }) {
@@ -7,33 +8,41 @@ module.exports = {
         if (perfilExistente) {
             throw new Error("Perfil já Existente")
         }
+        // const [ id ] =  await db('perfis').insert({ ...dados })
+        //                         .then(res => res)
+        //                         .then(res => console.log(res))   
+        //                         .catch(err => console.log(err.sqlMessage))
+        // return await db('perfis').where({ id }).first()
+        
+        try {
+            const [ id ] = await db('perfis').insert({ ...dados })
 
-        const novo = {
-            nome: dados.nome,
-            rotulo: dados.rotulo
+            return db('perfis').where({ id }).first()
+        } catch (e) {
+            throw new Error(e.sqlMessage)
         }
-
-        await db('perfis').insert(novo)
-                .then(res => res)
-                .catch(err => console.log(err.sqlMessage))
-                .finally(() => db.destroy())
     },
     async excluirPerfil(_, { filtro }) {
-        const perfilExistente = await db('perfis').where({id: filtro.id}).first()
+        try {
+            const perfilExistente = await ObterPerfil(_, { filtro })
 
-        if (perfilExistente) {
-            throw new Error("Perfil não encontrado para exclusão")
+            if (!perfilExistente) {
+                throw new Error("Perfil não encontrado para exclusão")
+            }
+
+            await db('perfis').where({ id : perfilExistente.id }).delete()
+                        .then((res) => console.log(res))
+                        .catch(err => console.log(err.sqlMessage))
+                        
+        } catch (e) {
+            console.log(e.sqlMessage)
+            throw new Error("Erro ao excluir Perfil")
         }
-
-        await db('perfis').where({ id : perfilExistente.id }).delete()
-                    .then((res) => console.log(res))
-                    .catch(err => console.log(err.sqlMessage))
-                    .finally(() => db.destroy())
     },
     async alterarPerfil(_, { filtro, dados }) {
         const perfilExistente = await db('perfis').where({id: filtro.id}).first()
 
-        if (perfilExistente) {
+        if (!perfilExistente) {
             throw new Error("Perfil não encontrado para edição")
         }
 
@@ -44,6 +53,5 @@ module.exports = {
                     })
                     .then((res) => console.log(res))
                     .catch(err => console.log(err.sqlMessage))
-                    .finally(() => db.destroy())
     }
 }

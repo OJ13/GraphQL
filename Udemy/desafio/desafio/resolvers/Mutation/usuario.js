@@ -31,7 +31,7 @@ module.exports = {
         await db('usuarios').where({ id: usuarioExistente.id }).delete()
                             .then(res => res)
                             .catch(err => console.log(err.sqlMessage))
-                            .finally(() => db.destroy())
+
     },
     async alterarUsuario(_, { filtro, dados }) {
         const usuarioExistente = await db('usuarios').where({ email: filtro.email}).first();
@@ -49,7 +49,6 @@ module.exports = {
                         })
                         .then(res => res)
                         .catch(err => console.log(err.sqlMessage))
-                        .finally(() => db.destroy())
 
     }
 }

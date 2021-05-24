@@ -28,19 +28,21 @@ module.exports = {
 
             if (!perfilExistente) {
                 throw new Error("Perfil não encontrado para exclusão")
-            }
+            } else {
+                await db('usuarios_perfis').where({ perfil_id : perfilExistente.id }).delete()
 
-            await db('perfis').where({ id : perfilExistente.id }).delete()
+                await db('perfis').where({ id : perfilExistente.id }).delete()
                         .then((res) => console.log(res))
-                        .catch(err => console.log(err.sqlMessage))
-                        
+            }
+            return perfilExistente
         } catch (e) {
             console.log(e.sqlMessage)
             throw new Error("Erro ao excluir Perfil")
         }
     },
     async alterarPerfil(_, { filtro, dados }) {
-        const perfilExistente = await db('perfis').where({id: filtro.id}).first()
+        try {
+            const perfilExistente = await ObterPerfil(_, { filtro })
 
         if (!perfilExistente) {
             throw new Error("Perfil não encontrado para edição")
@@ -52,6 +54,10 @@ module.exports = {
                         rotulo: dados.rotulo
                     })
                     .then((res) => console.log(res))
-                    .catch(err => console.log(err.sqlMessage))
+        return { ...perfilExistente, ...dados }
+        } catch (e) {
+            console.log(e.sqlMessage)
+            throw new Error("Erro ao alterar Perfil")
+        }
     }
 }

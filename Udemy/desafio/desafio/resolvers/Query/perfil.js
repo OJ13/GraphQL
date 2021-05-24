@@ -28,7 +28,7 @@ module.exports = {
             }
         } catch (e) {
             console.log(e.sqlMessage)
-            throw new Error("Erro ao buscar perfil");
+            throw new Error("Erro ao buscar perfil - Perfil não encontrado");
         }
     }
 }

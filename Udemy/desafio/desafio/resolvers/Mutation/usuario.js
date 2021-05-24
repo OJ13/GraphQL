@@ -2,24 +2,29 @@ const db = require('../../config/db')
 
 module.exports = {
     async novoUsuario(_, { dados }) {
-        const usuarioExistente = await db('usuarios').where({ email: dados.email}).first();
+        try {
+            const usuarioExistente = await db('usuarios').where({ email: dados.email}).first();
 
-        if (usuarioExistente) {
-            throw new Error("Usuário já existente")
+            if (usuarioExistente) {
+                throw new Error("Usuário já existente")
+            }
+
+            const novoUsuario = {
+                nome: dados.nome,
+                email: dados.email,
+                senha: dados.senha,
+                perfis: dados.perfis
+            }
+
+            await db('usuarios').insert(novoUsuario)
+                            .then(res => res)
+                            .catch(err => console.log(err.sqlMessage))
+                            .finally(() => db.destroy())
+
+        } catch (e) {
+            console.log(e.sqlMessage)
+            throw new Error("Erro ao criar Usuário")
         }
-
-        const novoUsuario = {
-            nome: dados.nome,
-            email: dados.email,
-            senha: dados.senha,
-            perfis: dados.perfis
-        }
-
-        await db('usuarios').insert(novoUsuario)
-                        .then(res => res)
-                        .catch(err => console.log(err.sqlMessage))
-                        .finally(() => db.destroy())
-
     },
     async excluirUsuario(_, { filtro }) {
         const usuarioExistente = await db('usuarios').where({ email: filtro.email}).first();

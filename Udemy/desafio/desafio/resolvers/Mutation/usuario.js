@@ -13,7 +13,7 @@ module.exports = {
 
             const idPerfis = [];
             if (dados.perfis) {
-                for(perfilFitro of dados.perfis) {
+                for(let perfilFitro of dados.perfis) {
                     const perfil = await ObterPerfil(_, { filtro: { ...perfilFitro } });
 
                     if (perfil) {
@@ -26,7 +26,7 @@ module.exports = {
 
             const [id] = await db('usuarios').insert({ ...dados }).then(res => res)
 
-            for(perfil_id of idPerfis) {
+            for(let perfil_id of idPerfis) {
                 await db('usuarios_perfis').insert({ perfil_id, usuario_id: id })
             }
 
@@ -53,21 +53,36 @@ module.exports = {
         }
     },
     async alterarUsuario(_, { filtro, dados }) {
-        const usuarioExistente = await db('usuarios').where({ email: filtro.email}).first();
+        try {
+            const usuarioExistente = await ObterUsuario(_, { filtro })
+            if (usuarioExistente) {
 
-        if (usuarioExistente) {
-            throw new Error("Usuário não encontrado para edição")
-        }
+                if (dados.perfis) {
+                    await db('usuarios_perfis').where({ usuario_id: usuarioExistente.id }).delete();
 
-        await db('usuarios').where({ id: usuarioExistente.id })
-                        .update({
-                            nome: dados.nome,
-                            email: dados.email,
-                            senha: dados.senha,
-                            perfis: dados.perfis                
-                        })
+                    for(let filtro of dados.perfis){
+                        const perfil = await ObterPerfil(_, { filtro })
+                        perfil && await db('usuarios_perfis').insert({
+                                        perfil_id: perfil.id,
+                                        usuario_id: usuarioExistente.id
+                                    });
+                    }
+                }
+
+                delete dados.perfis;
+                await db('usuarios')
+                        .where({ id: usuarioExistente.id })
+                        .update(dados)
                         .then(res => res)
-                        .catch(err => console.log(err.sqlMessage))
 
+                return { ...usuarioExistente, ...dados }
+
+            } else {
+                throw new Error("Usuário não encontrado para edição")
+            }
+        } catch (e) {
+            console.log(e.sqlMessage)
+            throw new Error("Erro ao editar Usuário")
+        }
     }
 }

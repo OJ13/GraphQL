@@ -114,7 +114,9 @@ Query JOIN em Knex
 Para criarmos uma query com join utilizando o knex, usamos a function join() passando 3 parametros, (tabela de ligação,
 campo da fk na tabela raiz, campo da fk na tabela de ligação) [para mais informações documentação do knex]
 
-
+Relacionamentos, podemos fazer relacionamentos, entre as entidades e assim fazer com que tenhamos acesso de dentro de uma
+query dentro da outra, verifique o exemplo, no (Type Perfill), agora dentro de perfil conseguimos tambem verificar os usuarios
+isso faz com que possamos ir e voltar dentro de consultas
 
 
 
